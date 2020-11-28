@@ -69,7 +69,8 @@ class UserRepository implements UserRepositoryInterface{
         DB::beginTransaction();
         try {
             $company_id = DB::table('companies')->insertGetId([
-                'type' => $data['type']
+                'type' => $data['type'],
+		'approuved'=>1
             ]);
             $user_id = DB::table('users')->insertGetId(
                 [
