@@ -1,12 +1,14 @@
 <?php
 namespace App\Gpp\ProductLists\Repositories;
-use App\Gpp\ProductLists\Exceptions\CreateProductListException;
-use App\Gpp\ProductLists\Exceptions\ProductListNotFoundException;
-use App\Gpp\ProductLists\Exceptions\UpdateProductListException;
 use App\Gpp\ProductLists\ProductList;
-use App\Gpp\ProductLists\Repositories\Interfaces\ProductListRepositoryInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use App\Http\Resources\ProductListCollection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Gpp\ProductLists\Exceptions\CreateProductListException;
+use App\Gpp\ProductLists\Exceptions\ProductListDeleteException;
+use App\Gpp\ProductLists\Exceptions\UpdateProductListException;
+use App\Gpp\ProductLists\Exceptions\ProductListNotFoundException;
+use App\Gpp\ProductLists\Repositories\Interfaces\ProductListRepositoryInterface;
 
 class ProductListRepository implements ProductListRepositoryInterface{
     
@@ -16,6 +18,23 @@ class ProductListRepository implements ProductListRepositoryInterface{
     function __construct(ProductList $product_list)
     {
         $this->model = $product_list;
+    }
+
+    public function findByLoadingId(int $loading_id):ProductListCollection
+    {
+        try {
+            return  new ProductListCollection($this->model->where('loading_slip_id',$loading_id)->get());
+        } catch (ModelNotFoundException $th) {
+            throw new ProductListNotFoundException($th);
+        }
+    }
+    public function findByDeliveryId(int $delivery_id):ProductListCollection
+    {
+        try {
+            return  new ProductListCollection($this->model->where('delivery_id',$delivery_id)->get());
+        } catch (ModelNotFoundException $th) {
+            throw new ProductListNotFoundException($th);
+        }
     }
     
     /**
@@ -48,6 +67,16 @@ class ProductListRepository implements ProductListRepositoryInterface{
             return $user->update($data);
         } catch (QueryException $th) {
             throw new UpdateProductListException($th);
+        }
+    }
+
+    public function destroy(int $product_list):bool
+    {
+        try {
+            $dele = $this->find($product_list);
+            return $dele->delete();
+        } catch (QueryException $th) {
+            throw new ProductListDeleteException($th);
         }
     }
     

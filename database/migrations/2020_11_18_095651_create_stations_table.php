@@ -29,6 +29,7 @@ class CreateStationsTable extends Migration
             $table->unsignedBigInteger('petroleum')->nullable();
             $table->foreign('petroleum')->references('id')->on('companies')->onDelete('cascade');
             $table->boolean('approuved')->default(0);
+            $table->boolean('is_submit')->default(0);
             $table->string('approuved_by')->nullable();
             $table->date('approuved_date')->nullable();
             $table->timestamps();

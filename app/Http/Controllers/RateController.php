@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Gpp\Rates\Repositories\Interfaces\RateRepositoryInterface;
 use App\Gpp\Rates\Requests\CreateRateRequest;
+use App\Gpp\Rates\Requests\UpdateRateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,7 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRateRequest $request, $id)
     {
         $lslip = $this->rateRepo->update($request->all(),$request->id);
 

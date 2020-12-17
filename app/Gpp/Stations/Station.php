@@ -1,10 +1,12 @@
 <?php
 namespace App\Gpp\Stations;
 
+use App\Gpp\Companies\Company;
+use App\Gpp\Decisions\Decision;
 use App\Gpp\Capacities\Capacity;
 use App\Gpp\Responsibles\Responsible;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Station extends Model
 {
@@ -28,11 +30,17 @@ class Station extends Model
         'approuved',
         'approuved_by',
         'approuved_date',
+        'is_submit',
     ];
 
     public function capacities()
     {
         return $this->hasOne(Capacity::class);
+    }
+
+    public function decisions()
+    {
+        return $this->hasMany(Decision::class);
     }
 
     public function responsibles()
@@ -42,6 +50,6 @@ class Station extends Model
 
     public function companies()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'petroleum');
     }
 }

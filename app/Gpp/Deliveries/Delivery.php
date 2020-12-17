@@ -2,8 +2,9 @@
 namespace App\Gpp\Deliveries;
 
 use App\Gpp\LoadingSlips\LoadingSlip;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Gpp\ProductLists\ProductList;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Delivery extends Model
 {
@@ -36,5 +37,10 @@ class Delivery extends Model
     public function load_slips()
     {
         return $this->belongsTo(LoadingSlip::class);
+    }
+
+    public function product_lists()
+    {
+        return $this->hasMany(ProductList::class);
     }
 }

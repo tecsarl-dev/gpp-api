@@ -6,6 +6,7 @@ use App\Gpp\Capacities\Truck;
 use App\Gpp\Companies\Company;
 use App\Gpp\Deliveries\Delivery;
 use App\Gpp\Depots\Depot;
+use App\Gpp\ProductLists\ProductList;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,8 @@ class LoadingSlip extends Model
         "truck_remork_id",
         "depot_id",
         "petroleum",
+        "transporter",
+        'approuved',
     ];
 
     public function companies()
@@ -50,6 +53,11 @@ class LoadingSlip extends Model
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
+    }
+
+    public function product_lists()
+    {
+        return $this->hasMany(ProductList::class);
     }
 
 }

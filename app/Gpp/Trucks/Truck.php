@@ -1,9 +1,11 @@
 <?php
 namespace App\Gpp\Trucks;
 
+use App\Gpp\Companies\Company;
+use App\Gpp\Decisions\Decision;
 use App\Gpp\LoadingSlips\LoadingSlip;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Truck extends Model
 {
@@ -31,12 +33,18 @@ class Truck extends Model
         "transporter",
         "approuved",
         "approuved_by",
-        "approuved_date"
+        "approuved_date",
+        'is_submit', 
     ];
 
     public function loading_slips()
     {
         return $this->hasMany(LoadingSlip::class);
+    }
+
+    public function decisions()
+    {
+        return $this->hasMany(Decision::class);
     }
 
     public function companies()

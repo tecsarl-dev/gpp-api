@@ -55,8 +55,7 @@ class RateRepository implements RateRepositoryInterface{
         try {
             return $this->model->create($data);
         } catch (QueryException $th) {
-            throw $th;
-            // throw new CreateRateException($th);
+            throw new CreateRateException($th);
         }
     }
 

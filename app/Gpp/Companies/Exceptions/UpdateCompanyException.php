@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Gpp\Trucks\Exceptions;
+namespace App\Gpp\Companies\Exceptions;
 
 use Exception;
 

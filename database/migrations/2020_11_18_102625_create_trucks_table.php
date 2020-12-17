@@ -33,6 +33,8 @@ class CreateTrucksTable extends Migration
             $table->boolean('approuved')->default(0);
             $table->string('approuved_by')->nullable();
             $table->date('approuved_date')->nullable();
+            $table->boolean('is_submit')->default(0);
+
             $table->timestamps();
         });
     }

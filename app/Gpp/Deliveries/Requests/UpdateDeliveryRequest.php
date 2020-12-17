@@ -24,7 +24,15 @@ class UpdateDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "delivery_date" => "required",
+            "customer_type" => "required",
+            "destination" => "required",
+            "city" => "required",
+            "receptionist" => "required",
+            "waybill_number" => "required",
+            "reference" => "required",
+            "approuved" => "required",
+            "loading_slip_id" => "required",  
         ];
     }
 }

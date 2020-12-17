@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Gpp\Users\Exceptions;
+namespace App\Gpp\LoadingSlips\Exceptions;
 
 use Exception;
 

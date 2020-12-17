@@ -1,17 +1,18 @@
 <?php
 namespace App\Gpp\LoadingSlips\Repositories;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Gpp\LoadingSlips\LoadingSlip;
 use App\Gpp\ProductLists\ProductList;
-use App\Gpp\Stations\Exceptions\CreateLoadingSlipException;
-use App\Gpp\Stations\Exceptions\LoadingSlipNotFoundException;
-use App\Gpp\Stations\Repositories\Interfaces\LoadingSlipRepositoryInterface;
-use App\Gpp\Users\Exceptions\UpdateLoadingSlipException;
+use Illuminate\Database\QueryException;
 use App\Http\Resources\LoadingSlipCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Gpp\LoadingSlips\Exceptions\LoadingDeleteException;
+use App\Gpp\LoadingSlips\Exceptions\CreateLoadingSlipException;
+use App\Gpp\LoadingSlips\Exceptions\UpdateLoadingSlipException;
+use App\Gpp\LoadingSlips\Exceptions\LoadingSlipNotFoundException;
+use App\Gpp\LoadingSlips\Repositories\Interfaces\LoadingSlipRepositoryInterface;
 
 class LoadingSlipRepository implements LoadingSlipRepositoryInterface{
     
@@ -26,7 +27,7 @@ class LoadingSlipRepository implements LoadingSlipRepositoryInterface{
     public function findAll():LoadingSlipCollection
     {
         try {
-            return new LoadingSlipCollection($this->model->where('petroleum', Auth::user()->company_id)->with("depots")->get()->sortDesc());
+            return new LoadingSlipCollection($this->model->with('product_lists')->where('petroleum', Auth::user()->company_id)->with("depots")->get()->sortDesc());
         } catch (ModelNotFoundException $th) {
             throw new LoadingSlipNotFoundException($th);
         }
@@ -40,7 +41,7 @@ class LoadingSlipRepository implements LoadingSlipRepositoryInterface{
     public function find(int $loading_slip):LoadingSlip
     {
         try {
-            return  $this->model->findOrFail($loading_slip);
+            return  $this->model->with('product_lists')->findOrFail($loading_slip);
         } catch (ModelNotFoundException $th) {
             throw new LoadingSlipNotFoundException($th);
         }
@@ -85,6 +86,16 @@ class LoadingSlipRepository implements LoadingSlipRepositoryInterface{
             return $user->update($data);
         } catch (QueryException $th) {
             throw new UpdateLoadingSlipException($th);
+        }
+    }
+
+    public function destroy(int $loading_slip):bool
+    {
+        try {
+            $truck = $this->find($loading_slip);
+            return $truck->delete();
+        } catch (QueryException $th) {
+            throw new LoadingDeleteException($th);
         }
     }
     

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Gpp\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Gpp\Products\Requests\CreateProductRequest;
+use App\Gpp\Products\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -65,7 +66,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         $lslip = $this->productRepo->update($request->all(),$request->id);
 

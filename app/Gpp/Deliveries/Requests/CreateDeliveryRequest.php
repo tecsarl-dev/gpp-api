@@ -33,6 +33,7 @@ class CreateDeliveryRequest extends FormRequest
             "reference" => "required",
             "approuved" => "required",
             "loading_slip_id" => "required",  
+            "products" => "required",  
         ];
     }
 }

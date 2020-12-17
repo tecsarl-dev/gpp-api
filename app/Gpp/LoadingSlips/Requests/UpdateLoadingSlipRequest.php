@@ -24,7 +24,14 @@ class UpdateLoadingSlipRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "code_loading" => "required|unique:loading_slips,code_loading,".$this->id,
+            "issue_date" => "required",
+            "fiscale_regime" => "required",
+            "loading_type" => "required",
+            "planned_loading_date" => "required",
+            "driver" => "required",
+            "truck_id" => "required",
+            "depot_id" => "required",
         ];
     }
 }

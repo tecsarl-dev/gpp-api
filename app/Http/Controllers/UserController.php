@@ -131,8 +131,7 @@ class UserController extends Controller
                 'email'=>$user['email'],
             ]));  
         } catch (\Throwable $th) {
-            // throw new UsersSendCodeVerificationErrorException($th);
-            throw $th;
+            throw new UsersSendCodeVerificationErrorException($th);
         }
         
         return response()->json([

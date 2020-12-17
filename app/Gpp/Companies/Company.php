@@ -3,9 +3,11 @@
 namespace App\Gpp\Companies;
 
 use App\Gpp\Capacities\Depot;
+use App\Gpp\Decisions\Decision;
 use App\Gpp\LoadingSlips\LoadingSlip;
 use App\Gpp\Products\Product;
 use App\Gpp\Rates\Rate;
+use App\Gpp\Stations\Station;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +33,7 @@ class Company extends Model
         'ifu',
         'rccm',
         'social_reason',
+        'social_capital',
         'status',
         'comment',
         'approval_number',
@@ -51,6 +54,7 @@ class Company extends Model
         'approuved_date',
         'contribut_gpp',
         'contribut_gpp_exp',
+        'is_submit',
     ];
 
 
@@ -58,6 +62,17 @@ class Company extends Model
     {
         return $this->hasMany(Depot::class);
     }
+    
+    public function decisions()
+    {
+        return $this->hasMany(Decision::class);
+    }
+
+    public function stations()
+    {
+        return $this->hasMany(Station::class, "petroleum");
+    }
+
 
     public function products()
     {

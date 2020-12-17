@@ -24,7 +24,12 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "code_product" => "required|unique:products,code_product,".$this->id,
+            "name" => "required",
+            "unity" => "required",
+            "gpp" => "required",
+            "active" => "required",
+            "spefication" => "required",
         ];
     }
 }

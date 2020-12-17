@@ -1,38 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Gpp\ProductLists\Repositories\Interfaces\ProductListRepositoryInterface;
-use App\Gpp\Products\Requests\CreateProductListRequest;
-use Illuminate\Http\Request;
 
 class ProductListController extends Controller
 {
-    private $rateRepo;
+    private $productListRepo;
 
     /**
      * Constructeur
      */
     public function __construct(ProductListRepositoryInterface $productListRepository)
     {
+        
         $this->productListRepo = $productListRepository;
-    }
-
-    public function listProductLists()
-    {
-        $productLists = $this->productListRepo->listProductLists();
-        return response()->json(['productLists' => $productLists],200);
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $productLists = $this->productListRepo->findAll();
-        return response()->json(['productLists' => $productLists],200);
     }
 
     /**
@@ -41,10 +24,18 @@ class ProductListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateProductListRequest $request)
+    public function store(Request $request)
     {
         $lslips = $this->productListRepo->save($request->all());
         return response()->json(['message' => "Liste Produit enregistré"],201);
+    }
+
+    public function index(Request $request)
+    { 
+        $lists = ($request->loading) ? $this->productListRepo->findByLoadingId($request->loading): $this->productListRepo->findByDeliveryId($request->delivery);
+        return response()->json([
+            "product_lists" => $lists
+        ]);
     }
 
     /**
@@ -82,7 +73,7 @@ class ProductListController extends Controller
      */
     public function destroy($id)
     {
-        $delete = $this->productRepo->destroy($id);
+        $delete = $this->productListRepo->destroy($id);
 
         return response()->json([
             'message' => "Produit supprimé"

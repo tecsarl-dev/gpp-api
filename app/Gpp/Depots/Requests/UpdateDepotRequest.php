@@ -24,7 +24,17 @@ class UpdateDepotRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "designation" => "required",
+            "code_depot" => "required|unique:depots,code_depot,".$this->id,
+            "country" => "required",
+            "city" => "required",
+            "address" => "required",
+            "phone" => "required",
+            "email" => "required",
+            "unity" => "required",
+            "capacity" => "required",
+            "active" => "required",
+            "gpp" => "required"
         ];
     }
 }

@@ -24,9 +24,17 @@ class UpdateStationRequest extends FormRequest
     public function rules()
     {
         return [
-            'country' => 'required|string',
-            'city' => 'required|string',
-            'code_station' => 'required',
+            "code_station" => "required|unique:stations,code_station,".$this->code_station,
+            'country' => 'required',
+            'city' => 'required',
+            'responsible_id' => 'required',
+            'responsible_name' => 'required',
+            'responsible_tel' => 'required',
+            'responsible_email' => 'required',
+            'capacity_gaz' => 'required',
+            'capacity_fuel' => 'required',
+            'capacity_gpl' => 'required',
+            'capacity_id' => 'required',
         ];
     }
 }

@@ -24,6 +24,7 @@ class CreateRateRequest extends FormRequest
     public function rules()
     {
         return [
+            "code_rate" => "required|unique:rates",
             "city_start" => "required",
             "city_end" => "required",
             "unit_price" => "required",

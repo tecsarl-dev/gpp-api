@@ -59,8 +59,7 @@ class UserRepository implements UserRepositoryInterface{
 
             return $this->model->create($data);
         } catch (QueryException $th) {
-            // throw new CreateUsersException($th);
-            throw $th;
+            throw new CreateUsersException($th);
         }
     }
 
@@ -70,7 +69,6 @@ class UserRepository implements UserRepositoryInterface{
         try {
             $company_id = DB::table('companies')->insertGetId([
                 'type' => $data['type'],
-		'approuved'=>1
             ]);
             $user_id = DB::table('users')->insertGetId(
                 [

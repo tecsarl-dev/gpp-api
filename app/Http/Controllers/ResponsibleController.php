@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Gpp\Stations\Repositories\Interfaces\DeliveryRepositoryInterface;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Gpp\Deliveries\Repositories\Interfaces\DeliveryRepositoryInterface;
 
 class ResponsibleController extends Controller
 {

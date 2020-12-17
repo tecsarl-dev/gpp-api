@@ -16,6 +16,7 @@ class Rate extends Model
      * @var array
      */
     protected $fillable = [
+        "code_rate",
         "city_start",
         "city_end",
         "unit_price",

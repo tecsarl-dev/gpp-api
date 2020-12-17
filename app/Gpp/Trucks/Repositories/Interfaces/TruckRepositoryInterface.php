@@ -10,5 +10,7 @@ interface TruckRepositoryInterface {
     public function find(int $truck_id):Truck;
     public function save(Array $data):Truck;
     public function update(Array $data,int $truck_id):bool;
+    public function destroy(int $truck_id):bool;
+    public function approuved(Array $data, int $truck_id):bool;
 
 }

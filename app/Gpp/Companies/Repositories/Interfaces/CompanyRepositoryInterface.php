@@ -6,9 +6,10 @@ use App\Http\Resources\CompanyCollection;
  
 
 interface CompanyRepositoryInterface {
+    public function findAll():CompanyCollection;
     public function listTransporters():CompanyCollection;
     public function find(int $company_id):Company;
     public function save(Array $data):Company;
     public function update(Array $data,int $company_id):bool;
-
+    public function approuved(Array $data, int $company_id):bool;
 }

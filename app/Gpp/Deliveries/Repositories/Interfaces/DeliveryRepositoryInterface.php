@@ -1,5 +1,5 @@
 <?php
-namespace App\Gpp\Stations\Repositories\Interfaces;
+namespace App\Gpp\Deliveries\Repositories\Interfaces;
 
 use App\Gpp\Deliveries\Delivery;
 use App\Gpp\LoadingSlips\LoadingSlip;

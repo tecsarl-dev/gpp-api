@@ -26,6 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->string('ifu')->nullable();
             $table->string('rccm')->nullable();
             $table->string('social_reason')->nullable();
+            $table->string('social_capital')->nullable();
             $table->string('status')->nullable();
             $table->string('comment')->nullable();
             $table->string('approval_number')->nullable();
@@ -46,6 +47,7 @@ class CreateCompaniesTable extends Migration
             $table->date('approuved_date')->nullable();
             $table->boolean('contribut_gpp')->default(0);
             $table->date('contribut_gpp_exp')->nullable();
+            $table->boolean('is_submit')->default(0);
             $table->timestamps();
         });
     }

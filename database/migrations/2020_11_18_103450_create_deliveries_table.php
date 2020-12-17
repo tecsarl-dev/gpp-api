@@ -17,12 +17,15 @@ class CreateDeliveriesTable extends Migration
             $table->id();
             $table->date('delivery_date');
             $table->string('customer_type');
-            $table->string('designation');
+            $table->string('designation')->nullable();
+            $table->text('destination')->nullable();
             $table->string('city')->nullable();
             $table->string('receptionist')->nullable();
             $table->string('waybill_number')->nullable();
             $table->string('reference');
+
             $table->boolean('approuved')->default(0);
+            
             $table->unsignedBigInteger('station_id')->nullable();
             $table->foreign('station_id')->references('id')->on('stations')->onDelete('cascade');
             $table->unsignedBigInteger('petroleum')->nullable();

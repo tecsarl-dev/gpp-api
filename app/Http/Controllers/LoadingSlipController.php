@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Gpp\LoadingSlips\Requests\CreateLoadingSlipRequest;
-use App\Gpp\Stations\Repositories\Interfaces\LoadingSlipRepositoryInterface;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Gpp\LoadingSlips\Requests\CreateLoadingSlipRequest;
+use App\Gpp\LoadingSlips\Repositories\Interfaces\LoadingSlipRepositoryInterface;
+use App\Gpp\LoadingSlips\Requests\UpdateLoadingSlipRequest;
 
 class LoadingSlipController extends Controller
 {
@@ -50,7 +51,9 @@ class LoadingSlipController extends Controller
      */
     public function show($id)
     {
-        //
+        $loadingSlips = $this->loadingslipRepo->find($id);
+
+        return response()->json(['loadingSlips' => $loadingSlips],200);
     }
 
     /**
@@ -60,9 +63,9 @@ class LoadingSlipController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update( UpdateLoadingSlipRequest $request, $id)
     {
-        $lslip = $this->loadingslipRepo->update($request->all(),$request->id);
+        $lslip = $this->loadingslipRepo->update($request->all(),$id);
 
         return response()->json([
             'message'=>"Bon de chargement mise à jour"
@@ -77,5 +80,9 @@ class LoadingSlipController extends Controller
      */
     public function destroy($id)
     {
+        $delete = $this->loadingslipRepo->destroy($id);
+        return response()->json([
+            'message' => "Bon de chargement supprimé"
+        ],200);
     }
 }

@@ -15,6 +15,7 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
+            $table->string('code_rate')->unique();
             $table->string('city_start');
             $table->string('city_end');
             $table->string('unit_price');

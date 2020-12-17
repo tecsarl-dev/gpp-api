@@ -1,10 +1,12 @@
 <?php
 namespace App\Gpp\Users;
+use App\Gpp\Decisions\Decision;
+use Laravel\Passport\HasApiTokens;
+use App\Http\Resources\UserCollection;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -48,4 +50,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //  /**
+    //  * Create a new Eloquent Collection instance.
+    //  *
+    //  * @param  array  $models
+    //  * @return \Illuminate\Database\Eloquent\Collection
+    //  */
+    // public function newCollection(array $models = [])
+    // {
+    //     return new UserCollection($models);
+    // }
+
+
+
+    public function decisions()
+    {
+        return $this->hasMany(Decision::class);
+    }
 }

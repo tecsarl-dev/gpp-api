@@ -20,8 +20,11 @@ class CreateProductListsTable extends Migration
             $table->string("product");
             $table->string("unity");
             $table->string("quantity")->default('0');
+            $table->string("quantity_used")->default('0');
             $table->unsignedBigInteger('loading_slip_id')->nullable();
             $table->foreign('loading_slip_id')->references('id')->on('loading_slips')->onDelete('cascade');
+            $table->unsignedBigInteger('delivery_id')->nullable();
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
             $table->timestamps();
 
         });

@@ -24,7 +24,14 @@ class UpdateRateRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "code_rate" => "required|unique:rates,code_rate,".$this->id,
+            "city_start" => "required",
+            "city_end" => "required",
+            "unit_price" => "required",
+            "unity" => "required",
+            "active" => "required",
+            "product_id" => "required",
+            "gpp" => "required",
         ];
     }
 }

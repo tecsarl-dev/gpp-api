@@ -2,6 +2,7 @@
 namespace App\Gpp\Trucks\Repositories;
  
  
+use App\Gpp\Products\Exceptions\TruckDeleteException;
 use App\Gpp\Trucks\Exceptions\CreateTruckException;
 use App\Gpp\Trucks\Exceptions\TruckNotFoundException;
 use App\Gpp\Trucks\Exceptions\UpdateTruckException;
@@ -26,7 +27,7 @@ class TruckRepository implements TruckRepositoryInterface{
     public function listTrucks():TruckCollection
     {
         try {
-            return  new TruckCollection($this->model->where('active',1)->get());
+            return  new TruckCollection($this->model->with('companies')->get()->sortDesc());
         } catch (ModelNotFoundException $th) {
             throw new TruckNotFoundException($th);
         }
@@ -49,7 +50,7 @@ class TruckRepository implements TruckRepositoryInterface{
     public function find(int $truck_id):Truck
     {
         try {
-            return  $this->model->findOrFail($truck_id);
+            return  $this->model->with(['companies','decisions'])->findOrFail($truck_id);
         } catch (ModelNotFoundException $th) {
             throw new TruckNotFoundException($th);
         }
@@ -59,8 +60,6 @@ class TruckRepository implements TruckRepositoryInterface{
     {
         try {
             // Pour les test 
-            $data['approuved']  = 1; 
-            // 
             return $this->model->create($data);
         } catch (QueryException $th) {
             throw new CreateTruckException($th);
@@ -74,6 +73,27 @@ class TruckRepository implements TruckRepositoryInterface{
             return $user->update($data);
         } catch (QueryException $th) {
             throw new UpdateTruckException($th);
+        }
+    }
+
+    public function approuved(Array $data, int $truck_id):bool 
+    {
+        try {
+            $c = $this->model->findOrFail($truck_id);
+            return $c->update($data);
+        } catch (QueryException $th) {
+            
+            throw new UpdateTruckException($th);
+        }
+    }
+
+    public function destroy(int $truck_id):bool
+    {
+        try {
+            $truck = $this->find($truck_id);
+            return $truck->delete();
+        } catch (QueryException $th) {
+            throw new TruckDeleteException($th);
         }
     }
     

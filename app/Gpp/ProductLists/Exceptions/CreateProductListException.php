@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Gpp\ProductLists\Exceptions;
 
 use Exception;
