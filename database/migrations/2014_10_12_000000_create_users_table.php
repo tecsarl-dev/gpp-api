@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('type');  // petroleum, carrier, admin, super-admin
+            $table->string('role')->default('admin');  // petroleum, carrier, admin, super-admin
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->date('birthday')->nullable();
