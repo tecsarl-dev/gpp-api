@@ -19,7 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://peregpp.tecbill.net',
+        'https://perepetrolier.tecbill.net',
+        'https://peretransporteur.tecbill.net'
+    ],
 
     'allowed_origins_patterns' => [],
 
