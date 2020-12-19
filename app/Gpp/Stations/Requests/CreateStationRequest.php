@@ -28,7 +28,6 @@ class CreateStationRequest extends FormRequest
             'city' => 'required',
             'code_station' => 'required|unique:stations',
             'authorization_file' => 'required|file|mimes:pdf',
-
             'responsible_name' => 'required',
             'responsible_tel' => 'required',
             'responsible_email' => 'required',
