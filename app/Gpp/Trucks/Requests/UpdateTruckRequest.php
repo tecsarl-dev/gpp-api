@@ -24,7 +24,7 @@ class UpdateTruckRequest extends FormRequest
     public function rules()
     {
         return [
-           "truck_number" => "required|unique:trucks,truck_number,".$this->truck_number,
+           "truck_number" => "required|unique:trucks,truck_number,".$this->id,
            "property" => "required",
            "type" => "required",
            "gauging_certificate_number" => "required",
