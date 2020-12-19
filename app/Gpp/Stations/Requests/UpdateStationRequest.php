@@ -23,6 +23,7 @@ class UpdateStationRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this->code_station);
         return [
             "code_station" => "required|unique:stations,code_station,".$this->code_station,
             'country' => 'required',
