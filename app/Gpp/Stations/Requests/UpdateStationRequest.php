@@ -2,7 +2,6 @@
 
 namespace App\Gpp\Stations\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateStationRequest extends FormRequest
@@ -25,10 +24,7 @@ class UpdateStationRequest extends FormRequest
     public function rules()
     {
         return [
-            "code_station" =>  [
-                'required',
-                Rule::unique('stations')->ignore($this->id),
-            ],
+            "code_station" => "required|unique:stations,code_station,".$this->id,
             'country' => 'required',
             'city' => 'required',
             'responsible_id' => 'required',
